@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+
+use utf8;
+use open qw(:std :utf8);
+
+print sort { length $a <=> length $b } <>

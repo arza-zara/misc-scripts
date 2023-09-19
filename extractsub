@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for f in "$@"; do
+	sub=${f%.*}.srt
+	if [ ! -f "$sub" ]; then
+		ffmpeg -i "$f" "$sub"
+		toiso "$sub"
+		unix2dos "$sub"
+	fi
+done

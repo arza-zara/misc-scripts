@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+sub color {
+	return "\x1b[38;5;$_[0]m$_[0]"
+}
+
+for $color (0..7) {
+	print color(sprintf("%02d", $color)) . " ";
+}
+
+print "\n";
+
+for $color (8..15) {
+	print color(sprintf("%02d", $color)) . " ";
+}
+
+print "\n\n";
+
+for $green (0..5) {
+	for $red (0..5) {
+		for $blue (0..5) {
+			print color(sprintf("%03d", 16 + 36*$red + 6*$green + $blue)) . " ";
+		}
+		print " ";
+	}
+	print "\n";
+}
+
+print "\n";
+
+for $color (232..255) {
+	print color(sprintf("%02d", $color)) . " ";
+}
+
+print "\n\x1b[0m" . "#" x 95 . "\n";

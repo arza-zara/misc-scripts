@@ -1,0 +1,9 @@
+#!/bin/bash
+
+file="$1"
+
+git show :1:$file > m1
+git show :2:$file > $file
+git show :3:$file > m3
+git merge-file --union $file m1 m3
+rm m1 m3

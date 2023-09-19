@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# rsyncqueue target
+# rsyncqueue source1 source2 ... target
+
+[ "$#" -eq 0 ] && exit
+
+target=${@: -1}
+target=${target%/}
+file=/tmp/rsyncqueue-${target//\//-}
+
+if [ "$#" -eq 1 ]; then
+	echo touching "$file"
+	touch "$file"
+	tail -0f "$file" | while read line; do
+		rsync -avih "$line" "$target"
+	done
+elif [ "$#" -gt 1 ]; then
+	for src in "${@:1:2}"; do
+		echo $(readlink -f "$src") >> "$file"
+	done
+fi

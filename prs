@@ -1,0 +1,3 @@
+#!/bin/bash
+
+hub pr list -^ --color=always -f '%Cblue%cI %pC%>(5)%i %Cyellow%<(12,trunc)%au %Creset %t%  l%Cgreen%  as%n' "$@" | cut -c 1-15,26-

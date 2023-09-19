@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for f in "$@"; do
+	iconv --verbose -f ISO-8859-1 -t UTF-8 "$f" -o "$f.tmp" && mv -vf "$f.tmp" "$f"
+done

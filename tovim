@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for arg in "$@"; do
+	vim --servername default --remote-tab "$arg"
+done

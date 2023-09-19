@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+
+while (<STDIN>) {
+	print eval('"'.$ARGV[1].'"')."\n" if /$ARGV[0]/;
+}

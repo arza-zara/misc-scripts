@@ -1,0 +1,50 @@
+#!/usr/bin/zsh
+
+default_branch=${1:-main}
+new_branch=${2:-integration}
+
+autoload colors
+colors
+
+git fetch
+git checkout $default_branch 
+git pull
+[[ $(git branch -l 'pr-*' --merged) ]] && git branch -d $(git branch -l 'pr-*' --merged) # delete already merged PR branches
+
+for arg in $@; do
+	git fpr $arg
+done
+
+own_branches=("${(f)"$(grep -v '^#' .merge)"}")
+prs=(${(f)"$(git branch -l 'pr-*' | pcregrep -o1 '(pr-[\w+]+)$')"})
+
+for pr in $prs; do
+	if [[ ${pr/pr-/} =~ ^[0-9]+$ ]]; then
+		git checkout $pr
+		git reset --hard origin/pr/${pr/pr-/}
+	fi
+done
+
+git rev-parse --quiet --verify $new_branch && (git branch -m $new_branch $new_branch.b-$(git log -1 --format=%cd --date=format-local:'%Y-%m-%d-%H%M' $new_branch) || exit) # backup old integration branch
+git checkout $default_branch
+git checkout -b $new_branch
+
+echo
+
+merged=()
+failed=()
+
+for b in $own_branches $prs; do
+	echo "$fg_bold[default]Merging branch $b...$reset_color"
+	if git merge --no-ff --no-edit $b; then
+		merged+=$b
+	else
+		git merge --abort
+		echo "$fg[red]Aborted merging branch $b$fg[default]"
+		failed+=$b
+	fi
+	echo
+done
+
+echo "$fg[green]Merged: $merged $fg[default]"
+echo "$fg[red]Failed: $failed"

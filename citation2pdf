@@ -1,0 +1,6 @@
+#!/bin/bash
+
+citation=$(xsel -bo)
+DOI=$(wget "https://api.crossref.org/works?query.bibliographic=$citation" -O - | jshon -e message -e items -e 0 -e DOI -u)
+url=$(wget "https://sci-hub.ru/$DOI" -O - | pcregrep -o3 'src ?= ?"((https?:)?\/\/)?([^"]+.pdf)')
+urlhandler https://sci-hub.ru$url

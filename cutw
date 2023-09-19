@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+
+while (<STDIN>) {
+	my @a = split ' ', $_;
+	print "$a[$ARGV[0]-1]\n";
+}

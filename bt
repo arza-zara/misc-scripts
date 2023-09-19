@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec gdb --batch -ex 'bt full' "$1" "$2"

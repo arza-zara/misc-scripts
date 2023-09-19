@@ -1,0 +1,6 @@
+#!/bin/bash
+
+count=$(wc -l "$1" | cut -f 1 -d ' ')
+half=$(($count/2))
+
+tail -n +$half "$1"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+q=$(echo $@|sed 's/ /%20/')
+
+data=$(curl -s "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&exchars=300&redirects&titles=$q")
+key=$(echo $data|jshon -e query -e pages -k)
+if [[ $key == -1 ]]; then
+	echo "Not found."
+	exit
+fi
+echo $data | jshon -e query -e pages -e $key -e extract | head -c-2 | tail -c+2 | sed -e 's;\\n; / ;g'

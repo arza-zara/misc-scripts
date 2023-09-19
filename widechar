@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+use open qw(:std :utf8);
+
+$out = "@ARGV";
+$out =~ s/(\S)/chr(ord($1)+65248)/eg;
+print $out;

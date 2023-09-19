@@ -1,0 +1,29 @@
+#!/bin/bash
+
+list=list.tsv
+readme=readme.md
+
+if [ ! -d .git ]; then
+	git init
+	message="Create repo"
+else
+	message="Update on $(date '+%Y-%m-%d')"
+fi
+
+echo $'# Miscellaneous scripts #\n' > $readme
+
+while read name desc; do
+	git add $name
+	echo -n "- [$name]($name): $desc"
+	if [ -f $name.png ]; then
+		echo " ([screenshot]($name.png))"
+		git add $name.png
+	else
+		echo
+	fi
+done < $list >> $readme
+
+echo $'\n🅮 Public domain' >> $readme
+
+git add $readme
+git commit -m "$message"

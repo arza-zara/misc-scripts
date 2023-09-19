@@ -1,0 +1,3 @@
+#!/bin/bash
+
+icdiff --no-bold --tabsize=4 "$@" | less

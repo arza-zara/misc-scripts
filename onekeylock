@@ -1,0 +1,30 @@
+#!/usr/bin/python
+
+# onekeylock x xtrlock
+
+import os, sys
+from Xlib import X, XK
+from Xlib.display import Display
+
+if len(sys.argv) < 3:
+	print(f'{os.path.basename(sys.argv[0])} <opener_key> <fail_command> [args]')
+	sys.exit()
+
+OPENER = sys.argv[1]
+FAIL_COMMAND = sys.argv[2]
+ARGS = sys.argv[3:]
+
+def keyname(keycode):
+	for key in dir(XK):
+		if key.startswith("XK_") and getattr(XK, key) == display.keycode_to_keysym(keycode, 0):
+			return key.lstrip("XK_")
+
+display = Display()
+root = display.screen().root
+
+root.grab_keyboard(True, X.GrabModeAsync, X.GrabModeAsync, X.CurrentTime)
+root.grab_pointer(True, X.ButtonPressMask | X.ButtonReleaseMask, X.GrabModeAsync, X.GrabModeAsync, 0, 0, X.CurrentTime)
+
+event = display.next_event()._data
+if not (event['type'] == 2 and keyname(event['detail']) == OPENER):
+	os.execlp(FAIL_COMMAND, FAIL_COMMAND, *ARGS)

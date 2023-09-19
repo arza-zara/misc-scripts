@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+
+message=${2:-"Time's up"}
+
+if [[ $1 == *:* ]]; then
+	echo "Will alert at $1 for $message"
+	systemd-run --user --on-calendar="$1" --setenv DBUS_SESSION_BUS_ADDRESS notify-send -u critical -t 600000 $message
+else
+	echo "Will alert after $1 for $message"
+	( sleep $1 && notify-send -u critical -t 600000 $message ) &
+fi

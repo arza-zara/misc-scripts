@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+my $k = "";
+
+while (<STDIN>) {
+	$k .= $_;
+}
+
+$k =~ s/\n/ /g;
+$k =~ s/  +/ /g;
+$k =~ s/^ +//g;
+$k =~ s/ +$//g;
+$k =~ s/\x09+/ /g;
+
+print $k;

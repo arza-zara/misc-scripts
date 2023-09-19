@@ -1,0 +1,14 @@
+#!/bin/bash
+
+repeat=$1
+timeon=$2
+timeoff=$3
+
+for i in $(seq 1 $repeat); do
+echo $i/$repeat
+xdotool key Num_Lock
+sleep $timeon
+xdotool key Num_Lock
+sleep $timeoff
+xdotool key Num_Lock
+done

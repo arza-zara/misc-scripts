@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for f in "$@"; do
+	cp -vai "$f" "$f".b-$(date +%Y-%m-%d)
+done

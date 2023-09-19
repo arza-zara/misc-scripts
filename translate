@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# translate eng-fin wikt-en-all
+
+cut -f 1 /usr/share/dictd/$1.index | uniq | fzf --reverse --preview "echo {} ; echo ; dict -d $1 {}" --preview-window=right:80% --bind /:clear-query -e --tiebreak=begin --bind "%:preview(dict -d $2 {})"

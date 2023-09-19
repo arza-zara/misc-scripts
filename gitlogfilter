@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+
+my $first = 1;
+my $linebreaks = 0;
+
+while (<>) {
+	if (/^\x1b/){
+		if ($linebreaks > 1) { print "\n"; }
+		if ($first) { $first = 0; }
+		else { print "\n"; }
+		$linebreaks = 0;
+	} elsif (/^\S/){
+		if ($linebreaks == 1) { print " ; "; }
+		elsif ($linebreaks == 0) { print " "; }
+		$linebreaks = 0;
+	} elsif (/./){
+		$linebreaks = 0;
+	} else {
+		$linebreaks++;
+	}
+
+	s/  ―― $//;
+	s/――/\x1b[38;5;244m――/;
+	s/^ (\d+) files? changed(, (\d+) insertions?\(\+\))?(, (\d+) deletions?\(-\))?$/  \x1b[38;5;22m$3 \x1b[38;5;88m$5/;
+
+	chomp;
+	print;
+}

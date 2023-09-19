@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+while true; do
+	time sh -c read
+done

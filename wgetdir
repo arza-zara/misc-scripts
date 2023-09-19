@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec wget -N -r -nH -np -nd -l1 "$@"

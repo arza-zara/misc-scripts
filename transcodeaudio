@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for f in "$@"; do
+	ffmpeg -i "$f" -vcodec copy -acodec aac -ac 2 -ab 64k -scodec copy "${f%.*}.fa.mkv"
+done

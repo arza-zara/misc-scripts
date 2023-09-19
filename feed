@@ -1,0 +1,37 @@
+#!/usr/bin/python
+
+import time
+import feedparser
+import sys
+import re
+
+url = sys.argv[1]
+
+if len(sys.argv) > 2:
+	last = 0
+else:
+	last = time.time()
+
+while True:
+	feed = feedparser.parse(url)
+	if len(feed['entries']) == 0:
+		print('error', flush=True, file=sys.stderr)
+		time.sleep(60)
+		continue
+	for i in range(0,len(feed['entries']))[::-1]:
+		published = int(time.mktime(feed['entries'][i]['published_parsed']))
+		if published > last:
+			print(
+				feed['entries'][i].get('title', ''),
+				'--',
+				feed['entries'][i].get('author', '')+
+				': '+
+				re.sub('<[^<]+?>', '',
+				 re.sub('<img .*?alt="(\S+)".*? />', '\\1',
+				  feed['entries'][i].get('summary', ''))
+				).replace('\n',' ; ').replace('&quot;','"')[:250].split('.',1)[0]+'...',
+				feed['entries'][i]['link'],
+				flush=True
+			)
+	last = int(time.mktime(feed['entries'][-1]['published_parsed']))
+	time.sleep(900)

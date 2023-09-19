@@ -1,0 +1,3 @@
+#!/bin/bash
+
+diff <(cd $(readlink -f "$1") && find . | sort) <(cd $(readlink -f "$2") && find . | sort)
