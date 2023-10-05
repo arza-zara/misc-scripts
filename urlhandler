@@ -1,13 +1,11 @@
 #!/usr/bin/zsh
 
 unsetopt CASE_MATCH
-ulimit -n 4096
-ulimit -c unlimited
 
-[[ $1 =~ "^https?://\S+\.(jpe?g|png|webp)($|\?)" ]] && exec feh ${1/dl=0/dl=1}
+[[ $1 =~ "^https?://\S+\.(jpe?g|jfif|png|webp)($|\?|:)" ]] && exec feh ${1/dl=0/dl=1}
 [[ $1 =~ "^https?://\S+\.pdf$" ]] && exec okular $1
 [[ $1 =~ "^https?://(www\.|vm\.)?(youtu\.be|youtube\.com|tiktok\.com)" ]] && exec mpv $1
-[[ $1 =~ "^https?://\S+\.(webm|mp4|avi|mov|mp3|m4a)$" ]] && exec mpv --force-window=yes $1
+[[ $1 =~ "^https?://\S+\.(webm|mp4|avi|mov|mp3|m4a|og[ga])$" ]] && exec mpv --force-window=yes $1
 [[ $1 =~ "^https?://\S+\.gif($|\?)" ]] && exec mpv --loop $1
 
 if pgrep -f 'qutebrowser '; then
