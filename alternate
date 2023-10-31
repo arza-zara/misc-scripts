@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while true; do
+	for arg in "$@"; do
+		sh -c "$arg"
+	done
+done

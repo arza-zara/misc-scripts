@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo -n "password: "
+read -s password
+
+for f in "$@"; do
+	qpdf --password="$password" --decrypt "$f" "$f.tmp" && mv -f "$f.tmp" "$f"
+done

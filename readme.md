@@ -3,12 +3,13 @@
 - [256c](256c): show 256 terminal colors ([screenshot](256c.png))
 - [50off](50off): cut off first 50% of lines
 - [agrep](agrep): grep lines matching a list of regexes
+- [alternate](alternate): alternate running commands
 - [autolatex](autolatex): run latex automatically on a .tex file when it has been edited
 - [blink](blink): blink num lock led
 - [bt](bt): get gdb backtrace
 - [bwdump](bwdump): get bandwidth used
 - [c](c): grep with context and colors
-- [calcstrune](calcstrune): calculate srtune parameters from two pairs of subtitle timestamps
+- [calcsrtune](calcsrtune): calculate srtune parameters from two pairs of subtitle timestamps
 - [ccr](ccr): compile c file and run it
 - [citation2pdf](citation2pdf): get pdf file from citation string
 - [count](count): count occurrences of same lines
@@ -19,6 +20,7 @@
 - [cutw](cutw): cut n'th word
 - [d](d): du with flags and sorting
 - [dayssince](dayssince): calculate days since a date
+- [decryptpdf](decryptpdf): decrypt encrypted pdf files
 - [diffdir](diffdir): find files only in one of two directories
 - [everyother](everyother): filter off every other line
 - [extractsub](extractsub): extract subtitle files from video files
